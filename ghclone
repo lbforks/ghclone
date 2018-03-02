@@ -26,12 +26,14 @@
 # SSH       : git@github.com:{user}/{repo}.git
 # Subversion: https://github.com/{user}/[repo}
 
-ghclone() {
-  local URL="${1%.git}" user repo
-  URL="${URL%/}"
-  repo="${URL##*/}"
-  URL="${URL%/$repo}"
-  user="${URL##*[:/]}"
 
-  git clone "git@github.com:$user/$repo" && cd "$repo"
+ghclone()
+{
+    local URL="${1%.git}" user repo
+    URL="${URL%/}"
+    repo="${URL##*/}"
+    URL="${URL%/$repo}"
+    user="${URL##*[:/]}"
+
+    git clone "git@github.com:$user/$repo" && cd "$repo"
 }
