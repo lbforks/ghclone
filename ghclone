@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ghclone: Cloning GitHub repository with different URLs
-# Copyright (c) 2014 Yu-Jie Lin
+# Copyright (c) 2014-2018 Yu-Jie Lin
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy of
 # this software and associated documentation files (the "Software"), to deal in
@@ -37,3 +37,7 @@ ghclone()
 
     git clone "git@github.com:$user/$repo" && cd "$repo"
 }
+
+
+# when being sourced, $0 == bash, only invoke main when they are the same
+[[ "$0" != "$BASH_SOURCE" ]] || ghclone "$@"
