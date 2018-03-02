@@ -30,6 +30,11 @@ setup() {
 }
 
 
+##########
+# GitHub #
+##########
+
+
 @test "$_TF https://github.com/user/repo  # GitHub" {
     eval "$BATS_TEST_DESCRIPTION"
 
@@ -54,4 +59,36 @@ setup() {
     eqs "$user" user
     eqs "$repo" repo
     eqs "$URL" "git@github.com:$user/$repo.git"
+}
+
+
+########
+# Gist #
+########
+
+
+@test "$_TF https://gist.github.com/user/repo  # GitHub" {
+    eval "$BATS_TEST_DESCRIPTION"
+
+    eqs "$user" ''
+    eqs "$repo" repo
+    eqs "$URL" "git@gist.github.com:$repo.git"
+}
+
+
+@test "$_TF https://gist.github.com/repo.git  # GitHub HTTPS" {
+    eval "$BATS_TEST_DESCRIPTION"
+
+    eqs "$user" ''
+    eqs "$repo" repo
+    eqs "$URL" "git@gist.github.com:$repo.git"
+}
+
+
+@test "$_TF git@gist.github.com:repo.git  # GitHub SSH" {
+    eval "$BATS_TEST_DESCRIPTION"
+
+    eqs "$user" ''
+    eqs "$repo" repo
+    eqs "$URL" "git@gist.github.com:$repo.git"
 }
