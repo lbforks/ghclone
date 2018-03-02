@@ -1,0 +1,54 @@
+
+
+                                    ghclone
+
+
+ghclone is a simple Bash function to help quickly clone GitHub and Gist 
+repository via SSH, and change directory into the newly cloned repository, so 
+the user can start explore the clone.
+
+
+                                    SUMMARY
+
+
+- only clone one
+
+- accepts web page, HTTPS clone, or SSH clone <URL>
+
+- cd into the cloned directory, if run as function
+
+- optional cloned [name], you can give a meaningful name for Gist repository.
+
+
+                                 USAGE EXAMPLE
+
+
+    /tmp $ ghclone <URL> [name]
+    [cloning]
+    /tmp/[name] $
+
+
+                                 INSTALLATION
+
+
+You can install with Makefile, for example:
+
+
+    $ make [PREFIX=/usr/local] install
+    $ make uninstall
+
+Although you can run it as script, but you will have to manually change 
+directory, you may want to source it from your ~/.bashrc.
+
+
+                                    HISTORY
+
+
+ghclone was created as part of dotfiles/bin in February, 2014.  In March, 2018, 
+it got its own repository.
+
+
+                                   COPYRIGHT
+
+
+ghclone is licensed under the MIT License.
