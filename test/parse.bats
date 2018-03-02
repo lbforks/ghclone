@@ -1,6 +1,6 @@
-#!/usr/bin/env bash
-# ghclone: Cloning GitHub repository via SSH with different URLs
-# Copyright (c) 2014-2018 Yu-Jie Lin
+#!/usr/bin/env bats
+_TF='_CP_parse'  # tested function
+# Copyright (c) 2018 Yu-Jie Lin
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy of
 # this software and associated documentation files (the "Software"), to deal in
@@ -20,28 +20,38 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# Usage: ghclone <url>
-# url could be one of:
-# GitHub   : https://github.com/{user}/[repo}
-#     HTTPS: https://github.com/{user}/{repo}.git
-#     SSH  : git@github.com:{user}/{repo}.git
+
+load helper
 
 
-ghclone()
-{
-    local URL user repo
-    # +_CP_parse
-    URL="${1%.git}"
-    URL="${URL%/}"
-    repo="${URL##*/}"
-    URL="${URL%/$repo}"
-    user="${URL##*[:/]}"
-    URL="git@github.com:$user/$repo.git"
-    # -_CP_parse
-
-    git clone "$URL" && cd "$repo"
+setup() {
+    eval "$(_CP)"
+    source "$GHCLONE"
 }
 
 
-# when being sourced, $0 == bash, only invoke main when they are the same
-[[ "$0" != "$BASH_SOURCE" ]] || ghclone "$@"
+@test "$_TF https://github.com/user/repo  # GitHub" {
+    eval "$BATS_TEST_DESCRIPTION"
+
+    eqs "$user" user
+    eqs "$repo" repo
+    eqs "$URL" "git@github.com:$user/$repo.git"
+}
+
+
+@test "$_TF https://github.com/user/repo.git  # GitHub HTTPS" {
+    eval "$BATS_TEST_DESCRIPTION"
+
+    eqs "$user" user
+    eqs "$repo" repo
+    eqs "$URL" "git@github.com:$user/$repo.git"
+}
+
+
+@test "$_TF git@github.com:user/repo.git  # GitHub SSH" {
+    eval "$BATS_TEST_DESCRIPTION"
+
+    eqs "$user" user
+    eqs "$repo" repo
+    eqs "$URL" "git@github.com:$user/$repo.git"
+}
