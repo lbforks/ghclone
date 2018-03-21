@@ -6,8 +6,13 @@ matrix:
     - os: osx
       env: HOMEBREW_NO_AUTO_UPDATE=1
 
+addons:
+  apt:
+    packages:
+      shunit2
+
 before_install:
-  - if [[ "$TRAVIS_OS_NAME" == 'osx' ]]; then brew install bats; fi
+  - if [[ "$TRAVIS_OS_NAME" == 'osx' ]]; then brew install shunit2; fi
 
 script:
   - make test

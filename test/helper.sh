@@ -19,7 +19,8 @@
 # SOFTWARE.
 
 
-GHCLONE="$BATS_TEST_DIRNAME/../ghclone"
+TEST_DIR="$(dirname "${BASH_SOURCE[0]}")"
+GHCLONE="$TEST_DIR/../ghclone"
 
 
 #######
@@ -40,7 +41,8 @@ GHCLONE="$BATS_TEST_DIRNAME/../ghclone"
 #     }
 #
 # The result can be used by eval to define the functions.
-_CP() {
+_CP()
+{
     < "$GHCLONE" \
     sed -n -E \
         -e '/^ *# \+_CP_[a-zA-Z0-9_]+$/,/^ *# -_CP_[a-zA-Z0-9_]+$/ {' \
@@ -49,18 +51,4 @@ _CP() {
             -e 'p' \
         -e '}' |
     sed -E -e 's/\$?RANDOM/$((_RND_SEQ[_RND_IDX\+\+]))/g'
-}
-
-
-###########
-# asserts #
-###########
-
-
-# test strings $1 == $2
-eqs ()
-{
-    echo "   '$1'"
-    echo "!= '$2'"
-    [[ "$1" == "$2" ]]
 }

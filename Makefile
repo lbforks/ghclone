@@ -14,7 +14,7 @@ all:
 
 
 test:
-	bats test
+	test/run_tests.sh
 .PHONY: test
 
 
