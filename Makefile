@@ -1,11 +1,10 @@
-PREFIX=/usr/local
-DESTDIR=
+SCRIPT = ghclone
+SRCDIR = src
 
-INSTDIR=$(DESTDIR)$(PREFIX)
-INSTBIN=$(INSTDIR)/bin
-
-SRCDIR=src
-SCRIPT=ghclone
+PREFIX  = /usr/local
+DESTDIR =
+INSTDIR = $(DESTDIR)$(PREFIX)
+INSTBIN = $(INSTDIR)/bin
 
 
 all:
